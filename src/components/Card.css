@@ -1,0 +1,15 @@
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent-gold);
+    border-radius: 0;
+    padding: 32px;
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.5);
+    transition: border-top-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    border-top-color: var(--accent-gold-light);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 48px rgba(0, 0, 0, 0.6);
+}

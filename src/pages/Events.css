@@ -1,0 +1,239 @@
+.events-page {
+    background: var(--bg-primary);
+}
+
+.pt-nav {
+    padding-top: 100px;
+}
+
+.section-sub-h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    margin-bottom: 48px;
+}
+
+.events-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+}
+
+.event-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+}
+
+.event-row.photo-left .event-photo-wrap {
+    order: 0;
+}
+
+.event-row.photo-left .event-info {
+    order: 1;
+}
+
+.event-row.photo-right .event-photo-wrap {
+    order: 1;
+}
+
+.event-row.photo-right .event-info {
+    order: 0;
+}
+
+/* Event photo container */
+.event-photo-wrap {
+    position: relative;
+    height: 280px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #141C28;
+}
+
+.event-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transform: scale(1.0);
+    transition: transform 0.5s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.event-photo-wrap:hover .event-img {
+    transform: scale(1.06);
+}
+
+/* Always-visible dark gradient at bottom */
+.event-gradient-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to top, rgba(8, 11, 16, 0.8) 0%, transparent 100%);
+    z-index: 3;
+    pointer-events: none;
+}
+
+/* Year badge — top right */
+.event-year-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #C9A84C;
+    color: #080b10;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 4px 10px;
+    border-radius: 0;
+    z-index: 4;
+}
+
+.event-year {
+    color: var(--accent-gold);
+    margin-bottom: 8px;
+}
+
+.event-meta-grid {
+    display: flex;
+    gap: 32px;
+}
+
+/* Sub events */
+.sub-events-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+}
+
+.sub-event-row {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.sub-event-row.photo-left {
+    direction: ltr;
+}
+
+.sub-event-row.photo-right {
+    direction: rtl;
+}
+
+.sub-event-row.photo-right>* {
+    direction: ltr;
+}
+
+.sub-event-photo-wrap {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #141C28;
+}
+
+.sub-event-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transform: scale(1.0);
+    transition: transform 0.5s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.sub-event-photo-wrap:hover .sub-event-img {
+    transform: scale(1.06);
+}
+
+/* img-container shimmer */
+.img-container {
+    background: #141C28;
+    position: relative;
+    overflow: hidden;
+}
+
+.img-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #141C28 0%, #1E2D40 50%, #141C28 100%);
+    background-size: 200% 100%;
+    animation: shimmerLoad 1.5s infinite;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.img-container img {
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes shimmerLoad {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* Stats */
+.stats-bar {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    text-align: center;
+    gap: 16px;
+}
+
+.stat-value {
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    color: var(--accent-gold);
+    display: block;
+    margin-bottom: 8px;
+}
+
+@media (max-width: 768px) {
+
+    .event-row,
+    .sub-event-row {
+        grid-template-columns: 1fr;
+    }
+
+    .event-row.photo-right .event-photo-wrap,
+    .event-row.photo-right .event-info {
+        order: unset;
+    }
+
+    .sub-event-row.photo-right {
+        direction: ltr;
+    }
+
+    .sub-event-row {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+    }
+}

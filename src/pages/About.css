@@ -1,0 +1,192 @@
+.about-page {
+    background: var(--bg-primary);
+}
+
+.pt-nav {
+    padding-top: 100px;
+}
+
+.about-desc {
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+    max-width: 700px;
+    margin-top: 20px;
+}
+
+.directors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 32px;
+}
+
+.director-card {
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border-top: 3px solid #C9A84C;
+}
+
+/* Director photo container */
+.director-photo-wrap {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+    background: #141C28;
+    border-radius: 0;
+    flex-shrink: 0;
+}
+
+.director-headshot {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    transform: scale(1.0);
+    transition: transform 0.4s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.director-card:hover .director-headshot {
+    transform: scale(1.05);
+}
+
+/* Hover overlay slides up from bottom */
+.director-hover-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(8, 11, 16, 0.85) 0%, transparent 60%);
+    padding: 32px 20px 16px;
+    transform: translateY(100%);
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 3;
+}
+
+.director-card:hover .director-hover-overlay {
+    transform: translateY(0%);
+}
+
+.director-hover-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 2px;
+}
+
+.director-hover-role {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #C9A84C;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+/* Fallback initials avatar */
+.director-photo-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1E2D40 0%, #141C28 100%);
+    border-top: 3px solid #C9A84C;
+}
+
+.director-photo-fallback span {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #C9A84C;
+    letter-spacing: 0.05em;
+}
+
+/* Info section */
+.director-info {
+    padding: 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.director-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+}
+
+.director-role {
+    font-size: 0.7rem;
+}
+
+.director-desc {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-top: 12px;
+    flex: 1;
+}
+
+.linkedin-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    color: var(--accent-gold);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: color 0.3s;
+}
+
+.linkedin-link:hover {
+    color: var(--accent-gold-light);
+}
+
+/* img-container loading shimmer */
+.img-container {
+    background: #141C28;
+    position: relative;
+    overflow: hidden;
+}
+
+.img-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+            #141C28 0%,
+            #1E2D40 50%,
+            #141C28 100%);
+    background-size: 200% 100%;
+    animation: shimmerLoad 1.5s infinite;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.img-container img {
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes shimmerLoad {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .directors-grid {
+        grid-template-columns: 1fr;
+    }
+}

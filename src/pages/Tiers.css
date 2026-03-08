@@ -1,0 +1,302 @@
+.tiers-page {
+    background: var(--bg-primary);
+}
+
+.pt-nav {
+    padding-top: 100px;
+}
+
+.tiers-3-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+
+.tier-showcase-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    transition: border-top-color 0.3s, transform 0.3s;
+}
+
+.tier-showcase-card:hover {
+    border-top-color: var(--accent-gold);
+    transform: translateY(-4px);
+}
+
+.tier-showcase-card.highlighted {
+    border: 1px solid var(--accent-gold);
+    border-top: 3px solid var(--accent-gold);
+    box-shadow: 0 0 60px rgba(201, 168, 76, 0.1);
+}
+
+.popular-badge {
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent-gold);
+    color: #080b10;
+    padding: 4px 18px;
+    white-space: nowrap;
+    font-size: 0.7rem;
+    z-index: 10;
+}
+
+/* ─────────────────────────────────────────────────────────
+   BOOTH IMAGE — 3-Layer Hover Animation System
+   Layer 1: Ken Burns slide (image transform)
+   Layer 2: Gold shimmer sweep (::after pseudo-element)
+   Layer 3: Bottom label bar slides up
+───────────────────────────────────────────────────────── */
+
+.booth-image-wrap {
+    overflow: hidden;
+    height: 280px;
+    position: relative;
+    background: #05080f;
+}
+
+/* Layer 1 — Ken Burns slide on image */
+.booth-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transform: scale(1.0) translateX(0px);
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: block;
+    position: relative;
+    z-index: 2;
+}
+
+.tier-card:hover .booth-image-wrap img {
+    transform: scale(1.08) translateX(-12px);
+}
+
+/* Layer 2 — Gold shimmer sweeps across on hover */
+.booth-image-wrap::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(105deg,
+            transparent 20%,
+            rgba(201, 168, 76, 0.18) 50%,
+            transparent 80%);
+    transition: left 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    pointer-events: none;
+    z-index: 3;
+}
+
+.tier-card:hover .booth-image-wrap::after {
+    left: 140%;
+}
+
+/* Layer 3 — Label bar slides up from bottom */
+.booth-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(8, 11, 16, 0.92) 0%, transparent 100%);
+    padding: 32px 20px 16px;
+    transform: translateY(100%);
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 4;
+}
+
+.tier-card:hover .booth-label {
+    transform: translateY(0%);
+}
+
+.booth-label span {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #C9A84C;
+}
+
+/* img-container loading shimmer */
+.img-container {
+    background: #141C28;
+    position: relative;
+    overflow: hidden;
+}
+
+.img-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+            #141C28 0%,
+            #1E2D40 50%,
+            #141C28 100%);
+    background-size: 200% 100%;
+    animation: shimmerLoad 1.5s infinite;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* booth-image-wrap uses ::after for shimmer, so don't apply .img-container::before there */
+.booth-image-wrap::before {
+    display: none;
+}
+
+@keyframes shimmerLoad {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* Tier body */
+.tier-body {
+    padding: 24px;
+}
+
+.tier-badge {
+    color: var(--accent-gold);
+    margin-bottom: 8px;
+    font-size: 0.8rem;
+}
+
+.tier-price {
+    font-size: 2rem;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.tier-caption {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+}
+
+.tier-desc {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.tier-perks {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tier-perks li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.perk-icon {
+    color: var(--accent-gold);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+/* Comparison table section */
+.comparison-section {
+    margin-top: 64px;
+    margin-bottom: 80px;
+}
+
+.comparison-table th,
+.comparison-table td {
+    padding: 14px 16px;
+}
+
+/* Islands */
+.islands-header {
+    margin: 80px 0 40px;
+}
+
+.islands-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.tier-island {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 48px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--text-muted);
+    padding: 40px;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    transition: border-left-color 0.3s;
+}
+
+.tier-island.top-tier {
+    border-left-color: var(--accent-gold);
+    box-shadow: 0 0 80px rgba(201, 168, 76, 0.1);
+}
+
+.island-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.island-badge {
+    color: var(--accent-gold);
+    margin-bottom: 8px;
+    font-size: 0.8rem;
+}
+
+.island-name {
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    margin-bottom: 8px;
+    margin-top: 4px;
+}
+
+.island-price {
+    font-size: 2.25rem;
+    color: var(--accent-gold);
+    margin-bottom: 16px;
+}
+
+.island-perks {
+    margin-top: 16px;
+}
+
+@media (max-width: 1024px) {
+    .tiers-3-grid {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+        margin: 0 auto;
+    }
+
+    .tier-island {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .islands-header {
+        margin: 40px 0 24px;
+    }
+
+    .booth-image-wrap {
+        height: 200px;
+    }
+}
