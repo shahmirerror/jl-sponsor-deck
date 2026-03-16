@@ -140,7 +140,7 @@ function CountdownTimer({ targetDate }) {
 function Hero() {
     const [titleNumber, setTitleNumber] = useState(0);
     const titles = useMemo(
-        () => ["innovative", "inspiring", "nationwide", "elite", "legendary"],
+        () => ["Bigger","Bolder","Better","Innovative", "Inspiring", "Nationwide", "Elite", "Legendary"],
         []
     );
 
