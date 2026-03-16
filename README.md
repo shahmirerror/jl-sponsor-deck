@@ -16,6 +16,23 @@ npm run build
 npm run start
 ```
 
+## Email Setup (Resend)
+
+The contact form now posts to `POST /api/contact` and sends inquiries via Resend.
+
+Create a `.env.local` file with:
+
+```bash
+RESEND_API_KEY=re_xxxxxxxxxxxxx
+RESEND_FROM_EMAIL=onboarding@resend.dev
+CONTACT_RECEIVER_EMAIL=acm@jinnah.edu
+```
+
+Notes:
+
+- Replace `RESEND_FROM_EMAIL` with a verified sender/domain in production.
+- `CONTACT_RECEIVER_EMAIL` is optional and defaults to `acm@jinnah.edu`.
+
 ## Routes
 
 Public pages:

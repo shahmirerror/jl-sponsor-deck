@@ -16,6 +16,8 @@ const Contact = () => {
         message: ''
     });
     const [submitted, setSubmitted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitError, setSubmitError] = useState('');
 
     useEffect(() => {
         if (!router.isReady) {
@@ -33,7 +35,31 @@ const Contact = () => {
     }, [router.isReady, router.query.sector, router.query.tier]);
 
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
-    const handleSubmit = (e) => { e.preventDefault(); setSubmitted(true); };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setSubmitError('');
+        setIsSubmitting(true);
+
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data?.message || 'Unable to submit inquiry.');
+            }
+
+            setSubmitted(true);
+        } catch (error) {
+            setSubmitError(error?.message || 'Unable to submit inquiry.');
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
 
     const contacts = [
         { name: 'Abdul Rafay', title: 'Director of PR & Sponsorships', photo: 'CONTACT_PHOTO_1', email: 'acm@jinnah.edu', phone: '+92 349 0833806', whatsapp: '+92 349 0833806' },
@@ -97,6 +123,9 @@ const Contact = () => {
                         ) : (
                             <form onSubmit={handleSubmit} style={{ background: 'var(--bg-card)', padding: '48px', border: '1px solid var(--border)', borderTop: '3px solid var(--accent-gold)' }}>
                                 <h3 style={{ marginBottom: '32px' }}>Partnership Inquiry</h3>
+                                {submitError && (
+                                    <p style={{ color: '#f87171', marginBottom: '20px' }}>{submitError}</p>
+                                )}
                                 <div className="form-row" style={{ marginBottom: '20px' }}>
                                     <div>
                                         <label className="label">Full Name *</label>
@@ -145,7 +174,9 @@ const Contact = () => {
                                     <label className="label">Message</label>
                                     <textarea name="message" rows="4" style={{ width: '100%', marginTop: '8px', resize: 'vertical' }} onChange={handleChange}></textarea>
                                 </div>
-                                <Button type="submit" style={{ width: '100%' }}>Submit Inquiry</Button>
+                                <Button type="submit" disabled={isSubmitting} style={{ width: '100%' }}>
+                                    {isSubmitting ? 'Submitting...' : 'Submit Inquiry'}
+                                </Button>
                             </form>
                         )}
                     </motion.div>
