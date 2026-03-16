@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 import PortalLayout from './portal/PortalLayout';
-import Dashboard from './portal/Dashboard';
-import SponsorsTable from './portal/SponsorsTable';
-import BudgetTracker from './portal/BudgetTracker';
-import Expenditures from './portal/Expenditures';
-import Reports from './portal/Reports';
-import Settings from './portal/Settings';
 import Button from '../components/Button';
+
+const Dashboard = dynamic(() => import('./portal/Dashboard'));
+const SponsorsTable = dynamic(() => import('./portal/SponsorsTable'));
+const BudgetTracker = dynamic(() => import('./portal/BudgetTracker'));
+const Expenditures = dynamic(() => import('./portal/Expenditures'));
+const Reports = dynamic(() => import('./portal/Reports'), { ssr: false });
+const Settings = dynamic(() => import('./portal/Settings'));
 
 /* Hard-coded credentials from Section J1 */
 const USERS = {

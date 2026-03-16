@@ -1,10 +1,19 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import SectionLabel from '../components/SectionLabel';
 import Card from '../components/Card';
-import { ContainerScroll } from '../components/ui/container-scroll-animation';
-import { Hero as AnimatedHero } from '../components/ui/animated-hero';
+
+const ContainerScroll = dynamic(
+    () => import('../components/ui/container-scroll-animation').then((mod) => mod.ContainerScroll),
+    { ssr: false }
+);
+
+const AnimatedHero = dynamic(
+    () => import('../components/ui/animated-hero').then((mod) => mod.Hero),
+    { ssr: false }
+);
 
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },

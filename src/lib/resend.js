@@ -1,4 +1,5 @@
 import { Resend } from 'resend';
+import process from 'node:process';
 
 const resendApiKey = process.env.RESEND_API_KEY;
 
