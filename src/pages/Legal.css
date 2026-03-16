@@ -1,0 +1,37 @@
+.legal-page {
+  background: var(--bg-primary);
+}
+
+.legal-container {
+  max-width: 900px;
+}
+
+.legal-title {
+  margin-top: 8px;
+  margin-bottom: 12px;
+}
+
+.legal-updated {
+  color: var(--text-secondary);
+  margin-bottom: 30px;
+}
+
+.legal-block {
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.legal-block h3 {
+  margin-bottom: 10px;
+}
+
+.legal-block p {
+  color: var(--text-secondary);
+}
+
+.legal-block a {
+  color: var(--accent-gold);
+  text-decoration: underline;
+}

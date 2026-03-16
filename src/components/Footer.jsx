@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Instagram, Linkedin, Facebook } from 'lucide-react';
-import './Footer.css';
+import Link from 'next/link';
+import { Instagram, Linkedin, Facebook, Youtube } from 'lucide-react';
 
 const Footer = () => {
     const year = new Date().getFullYear();
@@ -14,13 +13,16 @@ const Footer = () => {
 
                     {/* Column 1 — Brand */}
                     <div className="footer-col">
-                        <Link to="/" className="footer-brand-logo">
-                            <span className="footer-acm">ACM</span>
-                            <span className="footer-dot">·</span>
-                            <span className="footer-maju">MAJU</span>
+                        <Link href="/" className="footer-brand-logo">
+                            <img
+                                src="/sponsorship-deck/misc/acm-logo-transparent.png"
+                                alt="ACM MAJU"
+                                className="footer-brand-img"
+                                loading="lazy"
+                            />
                         </Link>
                         <p className="footer-tagline">
-                            Elite sponsorship management for Pakistan's premier university competition &amp; concert.
+                            Pakistan&apos;s premier inter-university tech and gaming festival. Bigger. Bolder. Better.
                         </p>
                         <div className="footer-socials">
                             <a href="https://www.instagram.com/acmmaju" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="footer-social-icon">
@@ -32,19 +34,22 @@ const Footer = () => {
                             <a href="https://www.facebook.com/AcmMajuStudentChapter" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="footer-social-icon">
                                 <Facebook size={20} />
                             </a>
+                            <a href="https://www.youtube.com/@acmmaju" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="footer-social-icon">
+                                <Youtube size={20} />
+                            </a>
                         </div>
                     </div>
 
                     {/* Column 2 — Navigation */}
                     <div className="footer-col">
-                        <h4 className="footer-col-heading">Navigation</h4>
+                        <h4 className="footer-col-heading">Quick Links</h4>
                         <ul className="footer-links">
-                            <li><Link to="/">Home</Link></li>
-                            <li><Link to="/about">About Us</Link></li>
-                            <li><Link to="/tiers">Sponsorship Tiers</Link></li>
-                            <li><Link to="/sectors">Sectors</Link></li>
-                            <li><Link to="/career-fair">Career Fair</Link></li>
-                            <li><Link to="/contact">Contact</Link></li>
+                            <li><Link href="/">Home</Link></li>
+                            <li><Link href="/about">About Us</Link></li>
+                            <li><a href="https://www.jinnahleague.com/jl26" target="_blank" rel="noopener noreferrer">JL&apos;26</a></li>
+                            <li><Link href="/tiers">Sponsorship Tiers</Link></li>
+                            <li><Link href="/sectors">Sectors</Link></li>
+                            <li><Link href="/events">Legacy</Link></li>
                         </ul>
                     </div>
 
@@ -52,11 +57,10 @@ const Footer = () => {
                     <div className="footer-col">
                         <h4 className="footer-col-heading">Resources</h4>
                         <ul className="footer-links">
-                            <li><Link to="/previous-sponsors">Previous Sponsors</Link></li>
-                            <li><Link to="/events">Previous Events</Link></li>
-                            <li><Link to="/social-insights">Social Media Insights</Link></li>
-                            <li><Link to="/portal">Sponsor Portal</Link></li>
-                            <li><Link to="/sponsor-portal">Partner Portal</Link></li>
+                            <li><Link href="/career-fair">Career Fair</Link></li>
+                            <li><Link href="/previous-sponsors">Sponsor History</Link></li>
+                            <li><Link href="/social-insights">Social Media Insights</Link></li>
+                            <li><a href="https://www.jinnahleague.com/media" target="_blank" rel="noopener noreferrer">Media &amp; Press</a></li>
                         </ul>
                     </div>
 
@@ -75,7 +79,7 @@ const Footer = () => {
                         </div>
 
                         {/* Map */}
-                        <div className="footer-map-block">
+                        {/* <div className="footer-map-block">
                             <div className="footer-map-label">Find Us</div>
                             <iframe
                                 title="Mohammad Ali Jinnah University"
@@ -87,9 +91,9 @@ const Footer = () => {
                                 loading="lazy"
                                 referrerPolicy="no-referrer-when-downgrade"
                             />
-                        </div>
+                        </div> */}
 
-                        <Link to="/contact" className="footer-cta-btn">Become a Sponsor</Link>
+                        <Link href="/contact" className="footer-cta-btn">Become a Sponsor</Link>
                     </div>
 
                 </div>
@@ -108,15 +112,9 @@ const Footer = () => {
                         Mohammad Ali Jinnah University, Karachi
                     </span>
                     <span className="footer-bottom-credit">
-                        Designed &amp; Developed by{' '}
-                        <a
-                            href="https://www.linkedin.com/in/rafay-hakeem/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="footer-credit-link"
-                        >
-                            Abdul Rafay
-                        </a>
+                        <Link href="/terms" className="footer-credit-link">Terms</Link>
+                        {' '}•{' '}
+                        <Link href="/privacy" className="footer-credit-link">Privacy</Link>
                     </span>
                 </div>
             </div>

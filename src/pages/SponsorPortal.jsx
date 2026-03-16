@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Routes, Route, Navigate, useNavigate, NavLink, Outlet } from 'react-router-dom';
+import { useEffect } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { LayoutDashboard, FileText, LogOut, CheckSquare, Image, CalendarDays } from 'lucide-react';
 import ImagePlaceholder from '../components/ImagePlaceholder';
-import './Portal.css';
 
 /* ── Mock sponsor accounts ── */
 const SPONSORS = {
@@ -13,37 +14,68 @@ const SPONSORS = {
 
 /* ── Root auth gate (proper useState) ── */
 const SponsorPortal = () => {
-    const [sponsor, setSponsor] = useState(() => {
+    const router = useRouter();
+    const [sponsor, setSponsor] = useState(null);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') {
+            return;
+        }
+
         try {
             const stored = localStorage.getItem('sponsor_auth');
-            return stored ? JSON.parse(stored) : null;
-        } catch { return null; }
-    });
+            setSponsor(stored ? JSON.parse(stored) : null);
+        } catch {
+            setSponsor(null);
+        }
+    }, []);
 
     const handleLogin = (sponsorData) => {
         localStorage.setItem('sponsor_auth', JSON.stringify(sponsorData));
         setSponsor(sponsorData);
+        router.push('/sponsor-portal/dashboard');
     };
 
     const handleLogout = () => {
         localStorage.removeItem('sponsor_auth');
         setSponsor(null);
+        router.push('/sponsor-portal');
     };
+
+    useEffect(() => {
+        if (sponsor && router.pathname === '/sponsor-portal') {
+            router.replace('/sponsor-portal/dashboard');
+        }
+    }, [sponsor, router]);
 
     if (!sponsor) {
         return <SponsorLogin onLogin={handleLogin} />;
     }
 
+    const currentPath = router.pathname;
+
+    const renderSponsorPage = () => {
+        switch (currentPath) {
+            case '/sponsor-portal/dashboard':
+                return <SponsorOverview sponsor={sponsor} />;
+            case '/sponsor-portal/deliverables':
+                return <SponsorDeliverables sponsor={sponsor} />;
+            case '/sponsor-portal/documents':
+                return <SponsorDocuments />;
+            case '/sponsor-portal/social-proof':
+                return <SponsorSocialProof />;
+            case '/sponsor-portal/event-info':
+                return <SponsorEventInfo />;
+            case '/sponsor-portal':
+                return null;
+            default:
+                return <SponsorOverview sponsor={sponsor} />;
+        }
+    };
+
     return (
-        <SponsorLayout sponsor={sponsor} onLogout={handleLogout}>
-            <Routes>
-                <Route index element={<Navigate to="dashboard" replace />} />
-                <Route path="dashboard" element={<SponsorOverview sponsor={sponsor} />} />
-                <Route path="deliverables" element={<SponsorDeliverables sponsor={sponsor} />} />
-                <Route path="documents" element={<SponsorDocuments />} />
-                <Route path="social-proof" element={<SponsorSocialProof />} />
-                <Route path="event-info" element={<SponsorEventInfo />} />
-            </Routes>
+        <SponsorLayout sponsor={sponsor} onLogout={handleLogout} currentPath={currentPath}>
+            {renderSponsorPage()}
         </SponsorLayout>
     );
 };
@@ -75,7 +107,7 @@ function SponsorLogin({ onLogin }) {
                         Sponsor Partner Hub — Jinnah League '26
                     </div>
                     <p style={{ color: 'var(--text-secondary)', marginTop: '14px', fontSize: '0.9rem' }}>
-                        Your partnership dashboard, fully transparent.
+                        Your partnership dashboard: fully transparent.
                     </p>
                 </div>
 
@@ -121,13 +153,13 @@ function SponsorLogin({ onLogin }) {
 }
 
 /* ── Layout shell ── */
-function SponsorLayout({ sponsor, onLogout, children }) {
+function SponsorLayout({ sponsor, onLogout, children, currentPath }) {
     const nav = [
-        { to: 'dashboard', icon: <LayoutDashboard size={18} />, label: 'Partnership Overview' },
-        { to: 'deliverables', icon: <CheckSquare size={18} />, label: 'Deliverables' },
-        { to: 'documents', icon: <FileText size={18} />, label: 'Documents' },
-        { to: 'social-proof', icon: <Image size={18} />, label: 'Social Proof' },
-        { to: 'event-info', icon: <CalendarDays size={18} />, label: 'Event Info' },
+        { href: '/sponsor-portal/dashboard', icon: <LayoutDashboard size={18} />, label: 'Partnership Overview' },
+        { href: '/sponsor-portal/deliverables', icon: <CheckSquare size={18} />, label: 'Deliverables' },
+        { href: '/sponsor-portal/documents', icon: <FileText size={18} />, label: 'Documents' },
+        { href: '/sponsor-portal/social-proof', icon: <Image size={18} />, label: 'Social Proof' },
+        { href: '/sponsor-portal/event-info', icon: <CalendarDays size={18} />, label: 'Event Info' },
     ];
 
     return (
@@ -147,13 +179,13 @@ function SponsorLayout({ sponsor, onLogout, children }) {
                 </div>
                 <nav className="sidebar-nav">
                     {nav.map(n => (
-                        <NavLink
-                            key={n.to}
-                            to={`/sponsor-portal/${n.to}`}
-                            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+                        <Link
+                            key={n.href}
+                            href={n.href}
+                            className={`nav-item ${currentPath === n.href ? 'active' : ''}`}
                         >
                             {n.icon} {n.label}
-                        </NavLink>
+                        </Link>
                     ))}
                 </nav>
                 <div className="sidebar-footer">

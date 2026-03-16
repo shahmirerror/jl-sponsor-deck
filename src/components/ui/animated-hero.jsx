@@ -1,29 +1,40 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { MoveRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
+
+function calcTimeLeft(targetDate) {
+    const diff = new Date(targetDate) - new Date();
+    if (diff <= 0) return null;
+    return {
+        days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((diff / (1000 * 60)) % 60),
+        seconds: Math.floor((diff / 1000) % 60),
+    };
+}
 
 /* ─── Countdown Timer Component ─── */
 function CountdownTimer({ targetDate }) {
-    const [timeLeft, setTimeLeft] = useState(calcTimeLeft());
-
-    function calcTimeLeft() {
-        const diff = new Date(targetDate) - new Date();
-        if (diff <= 0) return null;
-        return {
-            days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-            hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
-            minutes: Math.floor((diff / (1000 * 60)) % 60),
-            seconds: Math.floor((diff / 1000) % 60),
-        };
-    }
+    // null = not yet mounted (avoids SSR/client mismatch on time values)
+    const [timeLeft, setTimeLeft] = useState(null);
+    const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
-        const id = setInterval(() => setTimeLeft(calcTimeLeft()), 1000);
+        setMounted(true);
+        if (!targetDate) {
+            setTimeLeft(null);
+            return;
+        }
+        setTimeLeft(calcTimeLeft(targetDate));
+        const id = setInterval(() => setTimeLeft(calcTimeLeft(targetDate)), 1000);
         return () => clearInterval(id);
-    }, []);
+    }, [targetDate]);
 
     const pad = (n) => String(n).padStart(2, '0');
+
+    // Render nothing until client mounts — server and client initial render match.
+    if (!mounted) return null;
 
     return (
         <div className="countdown-timer" style={{
@@ -42,10 +53,10 @@ function CountdownTimer({ targetDate }) {
                 color: '#8A95A3',
                 marginBottom: '12px',
             }}>
-                Jinnah League '26 Begins In
+                Jinnah League '26 Schedule
             </div>
 
-            {timeLeft === null ? (
+            {!targetDate || timeLeft === null ? (
                 <div style={{
                     fontFamily: 'Cormorant Garamond, serif',
                     fontStyle: 'italic',
@@ -55,7 +66,7 @@ function CountdownTimer({ targetDate }) {
                     background: 'rgba(20, 28, 40, 0.85)',
                     border: '1px solid #1E2D40',
                 }}>
-                    The Event Has Begun
+                    Dates to be announced
                 </div>
             ) : (
                 <div style={{
@@ -224,19 +235,19 @@ function Hero() {
                             textAlign: 'center',
                             margin: '0 auto',
                         }}>
-                            Pakistan's premier university competition &amp; concert — two days, 5,000+
-                            students, 9 elite competitions. Put your brand at the centre of the next
+                            Pakistan's premier inter-university tech and gaming festival with a projected
+                            2,000+ participants and multiple high-impact competitions. Put your brand at the centre of the next
                             generation of tech and gaming leaders.
                         </p>
                     </div>
 
                     {/* Single animated CTA button */}
-                    <Link to="/contact" className="btn-sponsor">
+                    <Link href="/contact" className="btn-sponsor">
                         BECOME A SPONSOR <MoveRight style={{ width: '16px', height: '16px', display: 'inline', verticalAlign: 'middle', marginLeft: '10px' }} />
                     </Link>
 
                     {/* Countdown Timer */}
-                    <CountdownTimer targetDate="2026-04-15T09:00:00" />
+                    <CountdownTimer targetDate={null} />
 
                 </div>
             </div>

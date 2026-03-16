@@ -41,7 +41,7 @@ export const ContainerScroll = ({ titleComponent, children }) => {
                 }}
             >
                 <Header translate={translate} titleComponent={titleComponent} />
-                <Card rotate={rotate} translate={translate} scale={scale}>
+                <Card rotate={rotate} translate={translate} scale={scale} isMobile={isMobile}>
                     {children}
                 </Card>
             </div>
@@ -64,7 +64,7 @@ export const Header = ({ translate, titleComponent }) => {
     );
 };
 
-export const Card = ({ rotate, scale, children }) => {
+export const Card = ({ rotate, scale, children, isMobile }) => {
     return (
         <motion.div
             style={{
@@ -74,11 +74,11 @@ export const Card = ({ rotate, scale, children }) => {
                 marginTop: '-48px',
                 marginLeft: 'auto',
                 marginRight: 'auto',
-                height: window.innerWidth <= 768 ? '30rem' : '40rem',
+                height: isMobile ? '30rem' : '40rem',
                 width: '100%',
                 maxWidth: '64rem',
                 border: '4px solid #6C6C6C',
-                padding: window.innerWidth <= 768 ? '8px' : '24px',
+                padding: isMobile ? '8px' : '24px',
                 background: '#222222',
                 borderRadius: '30px',
             }}

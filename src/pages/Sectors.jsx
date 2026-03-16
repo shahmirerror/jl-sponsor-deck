@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
 import Card from '../components/Card';
 import SectionLabel from '../components/SectionLabel';
-import './SectorsBase.css';
 
 const sectorsData = [
     {
         id: 'banking', name: 'Banking & Finance',
-        pitch: 'Financial institutions gain direct access to over 1,000 future account holders and graduates entering the workforce who are actively seeking digital banking solutions and professional financial products.',
+        pitch: 'Financial institutions gain direct access to 2,000+ expected future account holders and graduates entering the workforce who are actively seeking digital banking solutions and professional financial products.',
         benefits: [
             'Exclusive branding at high-stakes award ceremonies where cash prizes are distributed to winners.',
             'Direct recruitment pipeline through a dedicated presence at our on-site career fair.',
@@ -19,7 +19,7 @@ const sectorsData = [
         id: 'tech', name: 'Technology & IT Partners',
         pitch: 'Position your brand at the heart of Pakistan\'s tech evolution by powering the infrastructure and hardware that fuels nine epic competitions.',
         benefits: [
-            'Hands-on product demonstration opportunities with a digitally savvy audience of 1,000+ tech enthusiasts.',
+            'Hands-on product demonstration opportunities with a digitally savvy audience of 2,000+ expected participants.',
             'Priority access to top-tier technical talent at the career fair for specialized IT roles.',
             'Brand integration into tech talks that highlight advancements in the computing landscape.',
         ],
@@ -48,7 +48,7 @@ const sectorsData = [
         benefits: [
             'Strategic banner placement in high-traffic venue zones to establish long-term brand recall.',
             'Engagement with future high-net-worth individuals at our career fair and networking zones.',
-            'Public acknowledgment during the Closing Ceremony, attended by over 1,000 participants.',
+            'Public acknowledgment during the Closing Ceremony attended by 2,000+ expected participants.',
         ],
     },
     {
@@ -80,7 +80,7 @@ const sectorsData = [
     },
     {
         id: 'retail', name: 'Retail & FMCG',
-        pitch: 'Capture the undivided attention of over 1,000 consumers during our vibrant Food Festival and high-energy gaming tournaments.',
+        pitch: 'Capture the undivided attention of 2,000+ expected consumers during our vibrant Food Festival and high-energy gaming tournaments.',
         benefits: [
             'Sampling and direct sales opportunities through branded stalls or product placement in attendee gift bags.',
             'Brand visibility at the career fair to attract creative, marketing, and supply chain talent.',
@@ -93,19 +93,21 @@ const sectorsData = [
         benefits: [
             'Co-branding opportunities on all official event posters and digital media assets.',
             'Recruitment of media and communications specialists through our on-site career fair.',
-            'VIP backstage and interview access during the Closing Concert and awards ceremonies.',
+            'VIP backstage and interview access during the Closing Ceremony and awards segment.',
         ],
     },
 ];
 
 const Sectors = () => {
-    const { hash } = useLocation();
+    const router = useRouter();
+
     useEffect(() => {
+        const hash = router.asPath.includes('#') ? router.asPath.split('#')[1] : '';
         if (hash) {
-            const el = document.getElementById(hash.substring(1));
+            const el = document.getElementById(hash);
             if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
         } else window.scrollTo(0, 0);
-    }, [hash]);
+    }, [router.asPath]);
 
     return (
         <div className="sectors-page pt-nav">
@@ -119,7 +121,7 @@ const Sectors = () => {
                         initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
                         style={{ color: 'var(--text-secondary)', maxWidth: '600px', marginTop: '16px', fontSize: '1.125rem' }}
                     >
-                        We approach sponsors across every major industry — find your sector and discover the tailored value we bring to your brand through direct engagement with over 1,000 ambitious attendees.
+                        We approach sponsors across every major industry — find your sector and discover the tailored value we bring to your brand through direct engagement with 2,000+ expected attendees.
                     </motion.p>
                 </div>
             </div>
@@ -150,7 +152,7 @@ const Sectors = () => {
                         </div>
 
                         <div style={{ marginTop: '32px' }}>
-                            <Link to={`/contact?sector=${sector.id}`} className="btn btn-primary">Express Interest →</Link>
+                            <Link href={`/contact?sector=${sector.id}`} className="btn btn-primary">Express Interest →</Link>
                         </div>
                     </div>
                 </section>

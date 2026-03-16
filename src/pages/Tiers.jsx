@@ -1,10 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Check, X } from 'lucide-react';
 import SectionLabel from '../components/SectionLabel';
 import { ContainerScroll } from '../components/ui/container-scroll-animation';
-import './Tiers.css';
 
 // Booth/tier images — using 3D renders from Sponsorship Booth Images
 const tierImages = {
@@ -84,7 +83,7 @@ const tiers = [
             'Everything in Co-Title, plus:',
             'Primary Naming Rights — The event officially becomes the "[Your Brand] Jinnah League \'26"',
             'Keynote Opportunity — Exclusive speaking slot during Opening & Closing ceremonies',
-            'Concert Branding — Primary stage branding for the high-energy entertainment finale',
+            'Grand Finale Branding — Primary stage branding for the closing showcase',
             'Global Reach — Primary partner in all national press releases & media campaigns',
         ],
         island: true,
@@ -127,7 +126,7 @@ const Tiers = () => (
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.25 }}
                     style={{ color: 'var(--text-secondary)', maxWidth: '600px', marginTop: '16px', fontSize: '1.125rem' }}
                 >
-                    Every tier is crafted to deliver measurable brand impact among 5,000+ attendees.
+                    Every tier is crafted to deliver measurable brand impact among 2,000+ expected attendees.
                     All amounts are PKR. <em style={{ color: 'var(--warning)', fontSize: '0.875rem' }}>Note: Amounts received from Shariah-compliant organizations will be allocated exclusively to Shariah-compliant expenses.</em>
                 </motion.p>
             </div>
@@ -194,7 +193,7 @@ const Tiers = () => (
                                         <li key={j}><Check size={14} className="perk-icon" /> {p}</li>
                                     ))}
                                 </ul>
-                                <Link to={`/contact?tier=${tier.id}`} className={`btn ${tier.id === 'gold' ? 'btn-primary' : 'btn-outline'}`} style={{ width: '100%', marginTop: '24px', display: 'block', textAlign: 'center' }}>
+                                <Link href={`/contact?tier=${tier.id}`} className={`btn ${tier.id === 'gold' ? 'btn-primary' : 'btn-outline'}`} style={{ width: '100%', marginTop: '24px', display: 'block', textAlign: 'center' }}>
                                     Select {tier.name}
                                 </Link>
                             </div>
@@ -272,7 +271,7 @@ const Tiers = () => (
                                         <li key={j}><Check size={14} className="perk-icon" /> {p}</li>
                                     ))}
                                 </ul>
-                                <Link to={`/contact?tier=${tier.id}`} className="btn btn-primary" style={{ marginTop: '24px', display: 'inline-block' }}>
+                                <Link href={`/contact?tier=${tier.id}`} className="btn btn-primary" style={{ marginTop: '24px', display: 'inline-block' }}>
                                     Inquire About {tier.name}
                                 </Link>
                             </div>

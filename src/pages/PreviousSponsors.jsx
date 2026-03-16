@@ -2,27 +2,23 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import SectionLabel from '../components/SectionLabel';
 import { ContainerScroll } from '../components/ui/container-scroll-animation';
-import './PreviousSponsors.css';
 
 const sponsors = [
-    { name: 'Dubai Islamic Bank', sector: 'Banking', year: '2023', tier: 'Platinum', logo: '/sponsorship-deck/sponsors/dubai islamic bank.png' },
-    { name: 'NIFT ePay', sector: 'Financial Services', year: '2023', tier: 'Gold', logo: '/sponsorship-deck/sponsors/NIFT-epay.png' },
-    { name: 'Inspedium', sector: 'Digital Services & Hosting', year: '2024', tier: 'Gold', logo: '/sponsorship-deck/sponsors/inspedium corp.jfif' },
-    { name: 'MATZ Solutions', sector: 'Software & IT', year: '2023', tier: 'Gold', logo: '/sponsorship-deck/sponsors/matz solution.jfif' },
-    { name: 'AKSIQ', sector: 'Software & IT', year: '2023', tier: 'Gold', logo: '/sponsorship-deck/sponsors/aksiq.jfif' },
-    { name: 'Skills 360', sector: 'Education', year: '2024', tier: 'Platinum', logo: '/sponsorship-deck/sponsors/skills 360.png' },
-    { name: 'ProByte', sector: 'Software & IT', year: '2024', tier: 'Platinum', logo: '/sponsorship-deck/sponsors/probyte logo.png' },
-    { name: 'Muhammad Ali Jinnah University', sector: 'Education', year: '2024', tier: 'Platinum', logo: '/sponsorship-deck/sponsors/maju.png' },
-    { name: 'Delivery Devs', sector: 'Software & IT', year: '2024', tier: 'Gold', logo: '/sponsorship-deck/sponsors/delivery devs logo.jpg' },
-    { name: '24 News HD', sector: 'Media', year: '2024', tier: 'Media Partner', logo: '/sponsorship-deck/sponsors/24 news hd.jpg' },
-    { name: 'Dunya News', sector: 'Media', year: '2024', tier: 'Media Partner', logo: '/sponsorship-deck/sponsors/dunya news.jpg' },
-    { name: 'GTV News', sector: 'Media', year: '2024', tier: 'Media Partner', logo: '/sponsorship-deck/sponsors/gtv news.jfif' },
-    { name: 'PTV Sports', sector: 'Sports Media', year: '2024', tier: 'Media Partner', logo: '/sponsorship-deck/sponsors/PTV_Sports Media Partner.png' },
+    { name: 'Matz Solutions', sector: 'Cloud & Software Solutions', year: '2023', tier: 'Gold', logo: '/sponsorship-deck/sponsors/matz-solutions.png' },
+    { name: 'AKSiQ', sector: 'RegTech & AI Solutions', year: '2023', tier: 'Silver', logo: '/sponsorship-deck/sponsors/aksiq.jfif' },
+    { name: 'Dubai Islamic Bank', sector: 'Islamic Banking', year: '2023', tier: 'Silver', logo: '/sponsorship-deck/sponsors/dubai islamic bank.png' },
+    { name: 'NIFT', sector: 'Fintech & Payment Infrastructure', year: '2023', tier: 'Silver', logo: '/sponsorship-deck/sponsors/nift.png' },
+    { name: 'Skills 360', sector: 'Professional Education & Training', year: '2024', tier: 'Gold', logo: '/sponsorship-deck/sponsors/skills-360.png' },
+    { name: 'ProByte', sector: 'IT Solutions & Cybersecurity', year: '2024', tier: 'Gold', logo: '/sponsorship-deck/sponsors/probyte.png' },
+    { name: 'Delivery Devs', sector: 'Software Development & DevOps', year: '2024', tier: 'Silver', logo: '/sponsorship-deck/sponsors/delivery-devs.png' },
+    { name: 'Inspedium Corporation', sector: 'Cloud Hosting & IT Services', year: '2024', tier: 'Bronze', logo: '/sponsorship-deck/sponsors/inspedium-corporation.png' },
 ];
 
 const tierColor = {
     Platinum: 'var(--text-secondary)',
     Gold: 'var(--accent-gold)',
+    Silver: 'var(--accent-blue)',
+    Bronze: 'var(--success)',
     'Esports Partner': 'var(--accent-blue)',
     'F&B Partner': 'var(--success)',
     'Media Partner': '#9b59b6',

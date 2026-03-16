@@ -2,26 +2,25 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import SectionLabel from '../components/SectionLabel';
 import { ContainerScroll } from '../components/ui/container-scroll-animation';
-import './Events.css';
 
 // Past full events — Jinnah League editions
 // Available: 1.png, 2.png, 3.png, 4.png, DSC_0880.JPG, DSC_1031.JPG (from JL24 Highlights)
 const events = [
     {
-        name: "Jinnah League '24", year: '2024', attendees: '1,000+', sponsors: '7+',
-        highlight: 'Launched 9 epic competitions across gaming and tech with a 200K+ Prize pool.',
+        name: "Jinnah League '24", year: '2024', attendees: '1,059', sponsors: 'PKR 270K',
+        highlight: 'National reach with 9 competitions, a food festival, and a PKR 270,000 prize pool.',
         photo: '/sponsorship-deck/events/DSC_0880.JPG',
         side: 'right',
     },
     {
-        name: "Jinnah League '23", year: '2023', attendees: '1,000+', sponsors: '7+',
-        highlight: 'Launched 7 epic competitions across gaming and tech with a 100K+ Prize pool.',
+        name: "Jinnah League '23", year: '2023', attendees: '585', sponsors: 'PKR 150K',
+        highlight: 'Expanded to an inter-university format across Karachi with 11 competitions.',
         photo: '/sponsorship-deck/events/2.png',
         side: 'left',
     },
     {
-        name: "Jinnah League '22", year: '2022', attendees: '500+', sponsors: '3+',
-        highlight: 'Launched 7 epic competitions across gaming and tech with a 100K+ Prize pool.',
+        name: "Jinnah League '22", year: '2022', attendees: '156', sponsors: 'PKR 40K',
+        highlight: "The founding edition: MAJU's first gaming festival with 4 tournaments.",
         photo: '/sponsorship-deck/events/3.png',
         side: 'right',
     },
@@ -39,21 +38,21 @@ const subEvents = [
     },
     {
         name: 'Final Boss Challenge 2.0',
-        desc: 'Event Held at the very start of Spring Semester with 5+ Competitions.',
+        desc: 'Event held at the very start of Spring Semester with 5+ competitions.',
         day: 'Day 1',
         photo: '/sponsorship-deck/student-week/DSC_0570.JPG',
         side: 'left',
     },
     {
         name: 'Final Boss Challenge',
-        desc: 'Event Held at the very start of Fall Semester with 5+ Competitions.',
+        desc: 'Event held at the very start of Fall Semester with 5+ competitions.',
         day: 'Day 2',
         photo: '/sponsorship-deck/student-week/DSC_0582.JPG',
         side: 'right',
     },
     {
         name: 'ACM Fiesta',
-        desc: 'Event Held at the very start of Spring Semester in 2024 with 5+ Competitions.',
+        desc: 'Event held at the very start of Spring Semester in 2024 with 5+ competitions.',
         day: 'Day 2',
         photo: '/sponsorship-deck/student-week/DSC_0180.JPG',
         side: 'left',
@@ -61,9 +60,9 @@ const subEvents = [
 ];
 
 const cumulativeStats = [
-    { value: '2,500+', label: 'Total Attendees' },
-    { value: '15+', label: 'Total Sponsors' },
-    { value: '2', label: 'Editions of ACM Magazine' },
+    { value: '1,800', label: 'Total Participants' },
+    { value: 'PKR 460K', label: 'Total Prize Pool' },
+    { value: '24', label: 'Total Competitions' },
     { value: 'Nationwide', label: 'Event Reach' },
 ];
 
@@ -95,7 +94,7 @@ const Events = () => (
                         </span>
                     </h2>
                     <p style={{ color: 'var(--text-secondary)', maxWidth: '480px', margin: '0 auto', lineHeight: 1.7 }}>
-                        2,500+ cumulative attendees · 15+ sponsors · Nationwide reach
+                        1,800 participants · PKR 460K total prize pool · Nationwide growth
                     </p>
                 </>
             }
@@ -140,7 +139,7 @@ const Events = () => (
                                 <p style={{ color: 'var(--text-secondary)', fontSize: '1rem' }}>{ev.highlight}</p>
                                 <div className="event-meta-grid" style={{ marginTop: '24px' }}>
                                     <div><div className="data-figure" style={{ color: 'var(--accent-gold)', fontSize: '1.5rem' }}>{ev.attendees}</div><div className="label">Attendees</div></div>
-                                    <div><div className="data-figure" style={{ color: 'var(--accent-gold)', fontSize: '1.5rem' }}>{ev.sponsors}</div><div className="label">Sponsors</div></div>
+                                    <div><div className="data-figure" style={{ color: 'var(--accent-gold)', fontSize: '1.5rem' }}>{ev.sponsors}</div><div className="label">Prize Pool</div></div>
                                 </div>
                             </div>
                         </motion.div>

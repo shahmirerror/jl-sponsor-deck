@@ -1,13 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Check } from 'lucide-react';
 import SectionLabel from '../components/SectionLabel';
 import Card from '../components/Card';
 import ImagePlaceholder from '../components/ImagePlaceholder';
 import { GlowingEffectDemo } from '../components/ui/GlowingEffectDemo';
 import { ContainerScroll } from '../components/ui/container-scroll-animation';
-import './CareerFair.css';
 
 const boothElite = '/booths/booth_elite.png';
 const boothExecutive = '/booths/booth_executive.png';
@@ -191,7 +190,7 @@ const CareerFair = () => (
                                         </li>
                                     ))}
                                 </ul>
-                                <Link to={`/contact?tier=${b.tier.split(' ')[0].toLowerCase()}`} className="btn btn-outline" style={{ marginTop: '20px', display: 'block', textAlign: 'center', fontSize: '0.8rem' }}>
+                                <Link href={`/contact?tier=${b.tier.split(' ')[0].toLowerCase()}`} className="btn btn-outline" style={{ marginTop: '20px', display: 'block', textAlign: 'center', fontSize: '0.8rem' }}>
                                     Claim This Booth →
                                 </Link>
                             </div>
@@ -252,7 +251,7 @@ const CareerFair = () => (
                 <p style={{ color: 'var(--text-secondary)', marginTop: '16px', marginBottom: '40px', maxWidth: '520px', margin: '16px auto 40px' }}>
                     Reserve your booth today and connect with Pakistan's most ambitious tech graduates.
                 </p>
-                <Link to="/contact?sector=career-fair" className="btn btn-primary">Book a Booth</Link>
+                <Link href="/contact?sector=career-fair" className="btn btn-primary">Book a Booth</Link>
             </div>
         </section>
     </div>

@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { Linkedin } from 'lucide-react';
 import SectionLabel from '../components/SectionLabel';
 import { ContainerScroll } from '../components/ui/container-scroll-animation';
-import './About.css';
 
 const fadeUp = {
     hidden: { opacity: 0, y: 24 },
@@ -37,7 +36,7 @@ const directors = [
         role: 'Director of Marketing',
         photo: '/sponsorship-deck/team/Muzna Moin Marketing.jpeg',
         linkedin: 'https://www.linkedin.com/in/muzna-moin-083281331/',
-        desc: 'Designing high-impact promotional strategies to reach over 5,000+ national participants.',
+        desc: 'Designing high-impact promotional strategies to engage 2,000+ expected participants nationwide.',
     },
     {
         name: 'Mahnoor Sohail',

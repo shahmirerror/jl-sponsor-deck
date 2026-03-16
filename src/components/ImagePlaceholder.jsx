@@ -1,5 +1,4 @@
 import React from 'react';
-import './ImagePlaceholder.css';
 
 /**
  * Renders a shimmer placeholder card for any image slot.

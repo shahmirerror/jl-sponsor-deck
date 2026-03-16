@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import PortalLayout from './portal/PortalLayout';
 import Dashboard from './portal/Dashboard';
 import SponsorsTable from './portal/SponsorsTable';
@@ -8,7 +8,6 @@ import Expenditures from './portal/Expenditures';
 import Reports from './portal/Reports';
 import Settings from './portal/Settings';
 import Button from '../components/Button';
-import './Portal.css';
 
 /* Hard-coded credentials from Section J1 */
 const USERS = {
@@ -23,12 +22,24 @@ const USERS = {
 };
 
 const Portal = () => {
-    const stored = localStorage.getItem('adminAuth');
-    const [user, setUser] = useState(stored ? JSON.parse(stored) : null);
+    const router = useRouter();
+    const [user, setUser] = useState(null);
     const [email, setEmail] = useState('');
     const [pw, setPw] = useState('');
     const [err, setErr] = useState('');
-    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (typeof window === 'undefined') {
+            return;
+        }
+
+        try {
+            const stored = localStorage.getItem('adminAuth');
+            setUser(stored ? JSON.parse(stored) : null);
+        } catch {
+            setUser(null);
+        }
+    }, []);
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -37,7 +48,7 @@ const Portal = () => {
             const authUser = { email, ...u };
             localStorage.setItem('adminAuth', JSON.stringify(authUser));
             setUser(authUser);
-            navigate('/portal/dashboard');
+            router.push('/portal/dashboard');
         } else {
             setErr('Invalid credentials. Contact your system administrator.');
         }
@@ -73,17 +84,31 @@ const Portal = () => {
         );
     }
 
+    const page = router.pathname;
+
+    const renderPortalPage = () => {
+        switch (page) {
+            case '/portal':
+            case '/portal/dashboard':
+                return <Dashboard user={user} />;
+            case '/portal/sponsors':
+                return <SponsorsTable user={user} />;
+            case '/portal/budget':
+                return <BudgetTracker user={user} />;
+            case '/portal/expenditures':
+                return <Expenditures user={user} />;
+            case '/portal/reports':
+                return <Reports user={user} />;
+            case '/portal/settings':
+                return <Settings user={user} />;
+            default:
+                return <Dashboard user={user} />;
+        }
+    };
+
     return (
         <PortalLayout onLogout={logout} user={user}>
-            <Routes>
-                <Route path="/" element={<Dashboard user={user} />} />
-                <Route path="/dashboard" element={<Dashboard user={user} />} />
-                <Route path="/sponsors" element={<SponsorsTable user={user} />} />
-                <Route path="/budget" element={<BudgetTracker user={user} />} />
-                <Route path="/expenditures" element={<Expenditures user={user} />} />
-                <Route path="/reports" element={<Reports user={user} />} />
-                <Route path="/settings" element={<Settings user={user} />} />
-            </Routes>
+            {renderPortalPage()}
         </PortalLayout>
     );
 };

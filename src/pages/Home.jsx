@@ -1,11 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import SectionLabel from '../components/SectionLabel';
 import Card from '../components/Card';
 import { ContainerScroll } from '../components/ui/container-scroll-animation';
 import { Hero as AnimatedHero } from '../components/ui/animated-hero';
-import './Home.css';
 
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },
@@ -44,10 +43,10 @@ const Home = () => (
         <section className="stats-bar">
             <div className="container stats-grid">
                 {[
-                    { value: '5,000+', label: 'Attendees Expected' },
-                    { value: '20+', label: 'Sponsoring Organizations' },
-                    { value: '2', label: 'Days of Programming' },
-                    { value: '9', label: 'Elite Competitions' },
+                    { value: '2,000+', label: 'Expected Participants' },
+                    { value: 'Pakistan-Wide', label: 'University Reach' },
+                    { value: '2', label: 'Festival Days' },
+                    { value: '8', label: 'Announced Competitions' },
                 ].map((stat, i) => (
                     <motion.div
                         key={i} className="stat-item"
@@ -75,7 +74,7 @@ const Home = () => (
                         </span>
                     </h2>
                     <p style={{ color: 'var(--text-secondary)', maxWidth: '540px', margin: '0 auto', lineHeight: 1.7 }}>
-                        5,000+ attendees · 9 elite competitions · 1 unforgettable concert
+                        2,000+ expected participants · 8 announced competitions · registrations opening soon
                     </p>
                 </>
             }
@@ -100,12 +99,11 @@ const Home = () => (
                     <motion.p variants={fadeUp} style={{ marginTop: '24px', color: 'var(--text-secondary)' }}>
                         ACM MAJU is a pioneering student-run society at Mohammad Ali Jinnah University dedicated
                         to fostering innovation, technological expertise, and academic excellence. Jinnah League
-                        '26 is our largest flagship event — a massive two-day summit in Karachi that brings
-                        together over 1,000 students from across Pakistan for high-stakes tech and gaming
-                        competitions, networking socials, and cultural celebrations.
+                        '26 is our most ambitious flagship event yet: a two-day tech and gaming festival in
+                        Karachi designed to host 2,000+ participants from universities across Pakistan.
                     </motion.p>
                     <motion.div variants={fadeUp} style={{ marginTop: '32px' }}>
-                        <Link to="/about" className="btn btn-outline">Meet Our Team</Link>
+                        <Link href="/about" className="btn btn-outline">Meet Our Team</Link>
                     </motion.div>
                 </motion.div>
                 <motion.div
@@ -136,7 +134,7 @@ const Home = () => (
                             viewport={{ once: true, margin: '-40px' }}
                             transition={{ delay: i * 0.05 }}
                         >
-                            <Link to={`/sectors#${sector.id}`}>
+                            <Link href={`/sectors#${sector.id}`}>
                                 <Card className="sector-card">
                                     <h4>{sector.name}</h4>
                                     <p className="label" style={{ marginTop: '16px' }}>Learn More →</p>
@@ -155,7 +153,7 @@ const Home = () => (
                 <h2 style={{ marginTop: '8px', marginBottom: '16px' }}>Partner At Your Level</h2>
                 <p style={{ color: 'var(--text-secondary)', maxWidth: '520px', margin: '0 auto 48px' }}>
                     From Silver to Title Sponsor — every tier is designed to deliver measurable brand impact
-                    among 5,000+ ambitious attendees.
+                    among 2,000+ ambitious participants.
                 </p>
                 <div className="tier-teaser-grid">
                     {[
@@ -179,7 +177,7 @@ const Home = () => (
                     ))}
                 </div>
                 <div style={{ marginTop: '48px' }}>
-                    <Link to="/tiers" className="btn btn-primary">View Full Packages</Link>
+                    <Link href="/tiers" className="btn btn-primary">View Full Packages</Link>
                 </div>
             </div>
         </section>
@@ -192,31 +190,31 @@ const Home = () => (
                 <div className="home-sponsor-track">
                     {[
                         { src: '/sponsorship-deck/sponsors/PTV_Sports Media Partner.png', alt: 'PTV Sports' },
-                        { src: '/sponsorship-deck/sponsors/NIFT-epay.png', alt: 'NIFT ePay' },
-                        { src: '/sponsorship-deck/sponsors/skills 360.png', alt: 'Skills 360' },
+                        { src: '/sponsorship-deck/sponsors/nift-landscape.png', alt: 'NIFT ePay' },
+                        { src: '/sponsorship-deck/sponsors/skills-360-landscape.png', alt: 'Skills 360' },
                         { src: '/sponsorship-deck/sponsors/maju.png', alt: 'MAJU' },
-                        { src: '/sponsorship-deck/sponsors/probyte logo.png', alt: 'Probyte' },
-                        { src: '/sponsorship-deck/sponsors/delivery devs logo.jpg', alt: 'Delivery Devs' },
+                        { src: '/sponsorship-deck/sponsors/probyte-landscape.png', alt: 'Probyte' },
+                        { src: '/sponsorship-deck/sponsors/delivery-devs-landscape.png', alt: 'Delivery Devs' },
                         { src: '/sponsorship-deck/sponsors/24 news hd.jpg', alt: '24 News HD' },
                         { src: '/sponsorship-deck/sponsors/dunya news.jpg', alt: 'Dunya News' },
                         { src: '/sponsorship-deck/sponsors/dubai islamic bank.png', alt: 'Dubai Islamic Bank' },
                         { src: '/sponsorship-deck/sponsors/gtv news.jfif', alt: 'GTV News' },
-                        { src: '/sponsorship-deck/sponsors/inspedium corp.jfif', alt: 'Inspedium Corp' },
-                        { src: '/sponsorship-deck/sponsors/matz solution.jfif', alt: 'Matz Solution' },
+                        { src: '/sponsorship-deck/sponsors/inspedium-corporation-landscape.png', alt: 'Inspedium Corp' },
+                        { src: '/sponsorship-deck/sponsors/matz-solutions-landscape.png', alt: 'Matz Solution' },
                         { src: '/sponsorship-deck/sponsors/aksiq.jfif', alt: 'Aksiq' },
                         /* duplicated set for seamless loop */
                         { src: '/sponsorship-deck/sponsors/PTV_Sports Media Partner.png', alt: 'PTV Sports' },
-                        { src: '/sponsorship-deck/sponsors/NIFT-epay.png', alt: 'NIFT ePay' },
-                        { src: '/sponsorship-deck/sponsors/skills 360.png', alt: 'Skills 360' },
+                        { src: '/sponsorship-deck/sponsors/nift-landscape.png', alt: 'NIFT ePay' },
+                        { src: '/sponsorship-deck/sponsors/skills-360-landscape.png', alt: 'Skills 360' },
                         { src: '/sponsorship-deck/sponsors/maju.png', alt: 'MAJU' },
-                        { src: '/sponsorship-deck/sponsors/probyte logo.png', alt: 'Probyte' },
-                        { src: '/sponsorship-deck/sponsors/delivery devs logo.jpg', alt: 'Delivery Devs' },
+                        { src: '/sponsorship-deck/sponsors/probyte-landscape.png', alt: 'Probyte' },
+                        { src: '/sponsorship-deck/sponsors/delivery-devs-landscape.png', alt: 'Delivery Devs' },
                         { src: '/sponsorship-deck/sponsors/24 news hd.jpg', alt: '24 News HD' },
                         { src: '/sponsorship-deck/sponsors/dunya news.jpg', alt: 'Dunya News' },
                         { src: '/sponsorship-deck/sponsors/dubai islamic bank.png', alt: 'Dubai Islamic Bank' },
                         { src: '/sponsorship-deck/sponsors/gtv news.jfif', alt: 'GTV News' },
-                        { src: '/sponsorship-deck/sponsors/inspedium corp.jfif', alt: 'Inspedium Corp' },
-                        { src: '/sponsorship-deck/sponsors/matz solution.jfif', alt: 'Matz Solution' },
+                        { src: '/sponsorship-deck/sponsors/inspedium-corporation-landscape.png', alt: 'Inspedium Corp' },
+                        { src: '/sponsorship-deck/sponsors/matz-solutions-landscape.png', alt: 'Matz Solution' },
                         { src: '/sponsorship-deck/sponsors/aksiq.jfif', alt: 'Aksiq' },
                     ].map((logo, i) => (
                         <div key={i} className="home-sponsor-item">
@@ -234,9 +232,9 @@ const Home = () => (
                 <SectionLabel text="Get Involved" />
                 <h2 style={{ marginTop: '8px' }}>Ready to be part of something bigger?</h2>
                 <p style={{ color: 'var(--text-secondary)', marginTop: '16px', marginBottom: '40px' }}>
-                    Join 20+ leading organizations who have chosen to invest in Pakistan's future.
+                    Partner with leading organizations investing in Pakistan's future tech talent.
                 </p>
-                <Link to="/contact" className="btn btn-primary">Become a Sponsor</Link>
+                <Link href="/contact" className="btn btn-primary">Become a Sponsor</Link>
             </div>
         </section>
 

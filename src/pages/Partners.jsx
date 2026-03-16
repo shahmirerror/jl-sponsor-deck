@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import './Partners.css';
+import Link from 'next/link';
 
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },
@@ -75,8 +74,8 @@ const Partners = () => (
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.35 }}
             >
-                <p>More partnerships being finalized</p>
-                <Link to="/contact" className="btn-partner-outline">
+                <p>More partnerships are being finalized.</p>
+                <Link href="/contact" className="btn-partner-outline">
                     Become a Partner
                 </Link>
             </motion.div>
@@ -92,7 +91,7 @@ const Partners = () => (
             >
                 <h2>Want Your Brand Here?</h2>
                 <p>Sponsorship opportunities across all tiers are still open for Jinnah League &apos;24.</p>
-                <Link to="/tiers" className="btn btn-primary">View Sponsorship Packages</Link>
+                <Link href="/tiers" className="btn btn-primary">View Sponsorship Packages</Link>
             </motion.div>
         </section>
 

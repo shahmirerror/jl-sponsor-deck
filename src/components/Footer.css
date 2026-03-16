@@ -42,6 +42,21 @@
     margin-bottom: 14px;
 }
 
+.footer-brand-img {
+    height: 46px;
+    width: auto;
+    object-fit: contain;
+    filter: invert(1);
+    background: transparent;
+    display: block;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.footer-brand-logo:hover .footer-brand-img {
+    opacity: 0.82;
+    transform: scale(1.03);
+}
+
 .footer-acm {
     font-family: 'Syne', sans-serif;
     font-size: 0.72rem;

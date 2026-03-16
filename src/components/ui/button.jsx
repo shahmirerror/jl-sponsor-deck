@@ -1,7 +1,5 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
-import { cva } from "class-variance-authority";
-import { cn } from "@/lib/utils";
 
 // Button styles use inline style objects keyed by variant/size
 // since this project uses CSS custom properties, not Tailwind.
@@ -61,7 +59,7 @@ const sizeStyles = {
 };
 
 const Button = React.forwardRef(
-    ({ className, variant = 'default', size = 'default', asChild = false, style, ...props }, ref) => {
+    ({ variant = 'default', size = 'default', asChild = false, style, ...props }, ref) => {
         const Comp = asChild ? Slot : 'button';
         const combinedStyle = {
             ...baseStyle,

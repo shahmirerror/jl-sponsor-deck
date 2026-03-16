@@ -1,21 +1,37 @@
 import React, { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
 import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
 import SectionLabel from '../components/SectionLabel';
 import ImagePlaceholder from '../components/ImagePlaceholder';
 import Button from '../components/Button';
-import './Contact.css';
 
 const Contact = () => {
-    const [searchParams] = useSearchParams();
+    const router = useRouter();
     const [formData, setFormData] = useState({
         name: '', company: '', designation: '', email: '', phone: '',
-        sector: searchParams.get('sector') || '',
-        tier: searchParams.get('tier') || '',
+        sector: '',
+        tier: '',
         message: ''
     });
     const [submitted, setSubmitted] = useState(false);
+
+    useEffect(() => {
+        if (!router.isReady) {
+            return;
+        }
+
+        const sector = typeof router.query.sector === 'string' ? router.query.sector : '';
+        const tier = typeof router.query.tier === 'string' ? router.query.tier : '';
+
+        setFormData((prev) => ({
+            ...prev,
+            sector: prev.sector || sector,
+            tier: prev.tier || tier,
+        }));
+    }, [router.isReady, router.query.sector, router.query.tier]);
+
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
     const handleSubmit = (e) => { e.preventDefault(); setSubmitted(true); };
 
@@ -31,7 +47,7 @@ const Contact = () => {
                     {/* Left Info Panel */}
                     <motion.div className="contact-info" initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}>
                         <SectionLabel text="Get In Touch" />
-                        <h1 style={{ marginBottom: '24px', marginTop: '8px' }}>Start The Conversation</h1>
+                        <h1 style={{ marginBottom: '24px', marginTop: '8px' }}>Start the Conversation</h1>
                         <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', marginBottom: '40px' }}>
                             Whether you're ready to secure your tier or need a custom arrangement, our team is here
                             to align our platform with your brand goals.

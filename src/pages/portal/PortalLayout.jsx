@@ -1,14 +1,26 @@
 import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { LayoutDashboard, Users, PieChart, Receipt, FileText, Settings, LogOut } from 'lucide-react';
 
 const PortalLayout = ({ children, onLogout, user }) => {
     const isAdmin = user?.role === 'Admin';
+    const router = useRouter();
+
+    const navItems = [
+        { href: '/portal/dashboard', label: 'Dashboard', icon: <LayoutDashboard size={18} /> },
+        { href: '/portal/sponsors', label: 'Sponsors', icon: <Users size={18} /> },
+        { href: '/portal/budget', label: 'Budget Tracker', icon: <PieChart size={18} /> },
+        { href: '/portal/expenditures', label: 'Expenditures', icon: <Receipt size={18} /> },
+        { href: '/portal/reports', label: 'Reports', icon: <FileText size={18} /> },
+        { href: '/portal/settings', label: 'Settings', icon: <Settings size={18} /> },
+    ];
+
     return (
         <div className="portal-layout">
             <aside className="portal-sidebar">
                 <div className="sidebar-header">
-                    <Link to="/" className="sidebar-logo">
+                    <Link href="/" className="sidebar-logo">
                         <span style={{ fontFamily: 'Cormorant Garamond', color: 'var(--accent-gold)', fontSize: '1.5rem', fontWeight: 700 }}>ACM<span style={{ color: 'var(--accent-gold-light)' }}>.</span>MAJU</span>
                     </Link>
                     <div className="label" style={{ color: 'var(--text-muted)', fontSize: '0.6rem', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Internal Portal</div>
@@ -20,12 +32,11 @@ const PortalLayout = ({ children, onLogout, user }) => {
                     )}
                 </div>
                 <nav className="sidebar-nav">
-                    <NavLink to="/portal/dashboard" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}><LayoutDashboard size={18} /> Dashboard</NavLink>
-                    <NavLink to="/portal/sponsors" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}><Users size={18} /> Sponsors</NavLink>
-                    <NavLink to="/portal/budget" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}><PieChart size={18} /> Budget Tracker</NavLink>
-                    <NavLink to="/portal/expenditures" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}><Receipt size={18} /> Expenditures</NavLink>
-                    <NavLink to="/portal/reports" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}><FileText size={18} /> Reports</NavLink>
-                    <NavLink to="/portal/settings" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}><Settings size={18} /> Settings</NavLink>
+                    {navItems.map((item) => (
+                        <Link key={item.href} href={item.href} className={`nav-item ${router.pathname === item.href ? 'active' : ''}`}>
+                            {item.icon} {item.label}
+                        </Link>
+                    ))}
                 </nav>
                 <div className="sidebar-footer">
                     <button className="logout-btn" onClick={onLogout}><LogOut size={18} /> Sign Out</button>

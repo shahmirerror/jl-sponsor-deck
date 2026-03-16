@@ -4,7 +4,6 @@ import { Instagram, Linkedin, Facebook } from 'lucide-react';
 import SectionLabel from '../components/SectionLabel';
 import Card from '../components/Card';
 import { ContainerScroll } from '../components/ui/container-scroll-animation';
-import './SocialInsights.css';
 
 // Real social media screenshot previews
 const socialPreviews = [
@@ -138,10 +137,10 @@ const SocialInsights = () => (
                     <SectionLabel text="What Sponsors Get" />
                     <h2 style={{ marginBottom: '32px', marginTop: '8px' }}>Your Brand, Amplified</h2>
                     <div className="grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '32px' }}>
-                        <Card><p style={{ color: 'var(--text-secondary)' }}>✅ Dedicated announcement post on Instagram and LinkedIn when partnership is confirmed</p></Card>
-                        <Card><p style={{ color: 'var(--text-secondary)' }}>✅ Logo featured in all event promotional reels and stories during the event week</p></Card>
-                        <Card><p style={{ color: 'var(--text-secondary)' }}>✅ Post-event thank-you reel featuring all sponsors</p></Card>
-                        <Card><p style={{ color: 'var(--text-secondary)' }}>✅ Sponsor spotlight post — reaching an average of 10.2K+ per post</p></Card>
+                        <Card><p style={{ color: 'var(--text-secondary)' }}>✅ Dedicated announcement post on Instagram and LinkedIn when partnership is confirmed.</p></Card>
+                        <Card><p style={{ color: 'var(--text-secondary)' }}>✅ Logo featured in all event promotional reels and stories during the event week.</p></Card>
+                        <Card><p style={{ color: 'var(--text-secondary)' }}>✅ Post-event thank-you reel featuring all sponsors.</p></Card>
+                        <Card><p style={{ color: 'var(--text-secondary)' }}>✅ Sponsor spotlight post — reaching an average of 10.2K+ per post.</p></Card>
                     </div>
                     <div className="content-grid">
                         {sponsorBenefits.map((b, i) => (

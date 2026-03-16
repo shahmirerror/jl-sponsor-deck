@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation, NavLink } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Menu, X } from 'lucide-react';
-import './Navbar.css';
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
-    const location = useLocation();
+    const router = useRouter();
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -16,7 +16,7 @@ const Navbar = () => {
 
     useEffect(() => {
         setMenuOpen(false);
-    }, [location]);
+    }, [router.asPath]);
 
     const navLinks = [
         { to: '/about', label: 'About' },
@@ -33,7 +33,7 @@ const Navbar = () => {
     return (
         <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${menuOpen ? 'menu-open' : ''}`}>
             <div className="navbar-container">
-                <Link to="/" className="navbar-logo">
+                <Link href="/" className="navbar-logo">
                     <img
                         src="/sponsorship-deck/misc/acm-logo-transparent.png"
                         alt="ACM MAJU"
@@ -46,16 +46,15 @@ const Navbar = () => {
                 <ul className="navbar-links">
                     {navLinks.map(link => (
                         <li key={link.to}>
-                            <NavLink to={link.to} className={({ isActive }) => isActive ? 'active' : ''}>
+                            <Link href={link.to} className={router.pathname === link.to ? 'active' : ''}>
                                 {link.label}
-                            </NavLink>
+                            </Link>
                         </li>
                     ))}
                 </ul>
 
                 <div className="navbar-cta">
-                    <Link to="/portal" className="btn-portal-link">Portal</Link>
-                    <Link to="/contact" className="btn btn-primary">Become a Sponsor</Link>
+                    <Link href="/contact" className="btn btn-primary">Become a Sponsor</Link>
                 </div>
 
                 {/* Hamburger */}
@@ -69,11 +68,11 @@ const Navbar = () => {
                 <ul className="mobile-links">
                     {navLinks.map(link => (
                         <li key={link.to}>
-                            <Link to={link.to}>{link.label}</Link>
+                            <Link href={link.to}>{link.label}</Link>
                         </li>
                     ))}
                 </ul>
-                <Link to="/contact" className="btn btn-primary mobile-cta">Become a Sponsor</Link>
+                <Link href="/contact" className="btn btn-primary mobile-cta">Become a Sponsor</Link>
             </div>
             {menuOpen && <div className="drawer-overlay" onClick={() => setMenuOpen(false)} />}
         </nav>
