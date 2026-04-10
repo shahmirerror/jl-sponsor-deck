@@ -1,12 +1,13 @@
 import { Resend } from 'resend';
 import process from 'node:process';
 
-const resendApiKey = process.env.RESEND_API_KEY;
-
-const defaultToEmail = process.env.CONTACT_RECEIVER_EMAIL || 'acm@jinnah.edu';
-const defaultFromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-
-export const resend = resendApiKey ? new Resend(resendApiKey) : null;
+const getEmailConfig = () => {
+    return {
+        resendApiKey: String(process.env.RESEND_API_KEY || '').trim(),
+        toEmail: String(process.env.CONTACT_RECEIVER_EMAIL || 'acm@jinnah.edu').trim(),
+        fromEmail: String(process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev').trim(),
+    };
+};
 
 const site = {
     name: 'ACM MAJU - Jinnah League',
@@ -33,20 +34,41 @@ const emailShell = ({ eyebrow, title, subtitle, body }) => {
     const c = site.colors;
 
     return `
-        <div style="margin:0;background:${c.bgPrimary};padding:24px 12px;font-family:'DM Sans',Arial,sans-serif;color:${c.textPrimary};">
-            <div style="max-width:680px;margin:0 auto;background:${c.bgCard};border:1px solid ${c.border};">
-                <div style="padding:22px 24px;border-bottom:1px solid ${c.border};background:linear-gradient(135deg,#0B1119 0%,#141C28 100%);">
-                    <div style="font-family:'Syne',Arial,sans-serif;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:${c.gold};">${esc(eyebrow)}</div>
-                    <h1 style="margin:10px 0 6px;font-size:24px;line-height:1.25;font-weight:700;color:${c.textPrimary};">${esc(title)}</h1>
-                    <p style="margin:0;color:${c.textSecondary};font-size:14px;line-height:1.6;">${esc(subtitle)}</p>
-                </div>
-                <div style="padding:24px;">${body}</div>
-                <div style="padding:16px 24px;border-top:1px solid ${c.border};font-size:12px;color:${c.textSecondary};line-height:1.6;">
-                    ${esc(site.name)}<br/>
-                    ${esc(site.websiteUrl)}
-                </div>
-            </div>
-        </div>
+        <!doctype html>
+        <html>
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <title>${esc(title)}</title>
+        </head>
+        <body style="margin:0;padding:0;background:${c.bgPrimary};">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="${c.bgPrimary}" style="background:${c.bgPrimary};border-collapse:collapse;">
+                <tr>
+                    <td align="center" style="padding:24px 12px;">
+                        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="680" style="width:680px;max-width:680px;border-collapse:collapse;background:${c.bgCard};border:1px solid ${c.border};font-family:Arial,sans-serif;color:${c.textPrimary};">
+                            <tr>
+                                <td bgcolor="#0B1119" style="padding:20px 24px;border-bottom:1px solid ${c.border};">
+                                    <div style="font-size:11px;line-height:14px;letter-spacing:2px;text-transform:uppercase;color:${c.gold};font-weight:bold;">${esc(eyebrow)}</div>
+                                    <div style="margin-top:10px;font-size:38px;line-height:1.25;font-weight:700;color:${c.textPrimary};">${esc(title)}</div>
+                                    <div style="margin-top:8px;font-size:14px;line-height:1.6;color:${c.textSecondary};">${esc(subtitle)}</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:24px;">${body}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:14px 24px;border-top:1px solid ${c.border};font-size:12px;line-height:1.6;color:${c.textSecondary};">
+                                    ${esc(site.name)}<br />
+                                    <a href="${esc(site.websiteUrl)}" style="color:${c.textSecondary};text-decoration:underline;">${esc(site.websiteUrl)}</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </body>
+        </html>
     `;
 };
 
@@ -81,18 +103,40 @@ const inquiryHtmlTemplate = (payload) => {
 
     const detailsTable = rows.map(([label, value]) => (
         `<tr>
-            <td style="padding:10px 0;border-bottom:1px solid ${c.border};color:${c.textSecondary};width:38%;">${esc(label)}</td>
-            <td style="padding:10px 0;border-bottom:1px solid ${c.border};color:${c.textPrimary};">${esc(value)}</td>
+            <td valign="top" style="padding:10px 0;border-bottom:1px solid ${c.border};color:${c.textSecondary};width:38%;font-size:14px;line-height:1.4;">${esc(label)}</td>
+            <td valign="top" style="padding:10px 0;border-bottom:1px solid ${c.border};color:${c.textPrimary};font-size:14px;line-height:1.4;">${esc(value)}</td>
         </tr>`
     )).join('');
 
     const body = `
-        <p style="margin:0 0 16px;color:${c.textSecondary};line-height:1.7;">A new sponsorship inquiry was submitted through the website contact form.</p>
-        <table style="width:100%;border-collapse:collapse;font-size:14px;">${detailsTable}</table>
-        <div style="margin-top:18px;padding:14px 16px;border:1px solid ${c.border};background:#0E1520;">
-            <div style="font-family:'Syne',Arial,sans-serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:${c.gold};margin-bottom:8px;">Message</div>
-            <p style="margin:0;white-space:pre-wrap;color:${c.textPrimary};line-height:1.7;">${esc(payload.message || 'No message provided.')}</p>
-        </div>
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+            <tr>
+                <td style="padding:0 0 16px 0;color:${c.textSecondary};font-size:15px;line-height:1.7;">
+                    A new sponsorship inquiry was submitted through the website contact form.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">${detailsTable}</table>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-top:18px;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#0E1520" style="border-collapse:collapse;background:#0E1520;border:1px solid ${c.border};">
+                        <tr>
+                            <td style="padding:12px 16px 8px 16px;color:${c.gold};font-size:11px;line-height:14px;letter-spacing:2px;text-transform:uppercase;font-weight:bold;">
+                                Message
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:0 16px 14px 16px;color:${c.textPrimary};font-size:14px;line-height:1.7;white-space:pre-wrap;">
+                                ${esc(payload.message || 'No message provided.')}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
     `;
 
     return emailShell({
@@ -107,22 +151,43 @@ const confirmationHtmlTemplate = (payload) => {
     const c = site.colors;
 
     const body = `
-        <p style="margin:0 0 14px;color:${c.textPrimary};line-height:1.7;">Hi ${esc(payload.name)},</p>
-        <p style="margin:0 0 14px;color:${c.textSecondary};line-height:1.7;">
-            Thank you for your interest in sponsoring Jinnah League. We have received your inquiry and our partnerships team will reach out within 24 hours.
-        </p>
-        <div style="margin:18px 0;padding:14px 16px;border:1px solid ${c.border};background:#0E1520;">
-            <div style="font-family:'Syne',Arial,sans-serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:${c.gold};margin-bottom:8px;">Your Submission</div>
-            <div style="color:${c.textPrimary};font-size:14px;line-height:1.75;">
-                <strong>Company:</strong> ${esc(payload.company)}<br/>
-                <strong>Email:</strong> ${esc(payload.email)}<br/>
-                <strong>Sector:</strong> ${esc(payload.sector || 'Not specified')}<br/>
-                <strong>Tier:</strong> ${esc(payload.tier || 'Not specified')}
-            </div>
-        </div>
-        <p style="margin:0;color:${c.textSecondary};line-height:1.7;">
-            For urgent assistance, contact us at <a href="mailto:${esc(site.supportEmail)}" style="color:${c.gold};text-decoration:none;">${esc(site.supportEmail)}</a>.
-        </p>
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+            <tr>
+                <td style="padding:0 0 12px 0;color:${c.textPrimary};font-size:32px;line-height:1.5;">
+                    Hi ${esc(payload.name)},
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:0 0 14px 0;color:${c.textSecondary};font-size:15px;line-height:1.7;">
+                    Thank you for your interest in sponsoring Jinnah League. We have received your inquiry and our partnerships team will reach out within 24 hours.
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:6px 0 18px 0;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#0E1520" style="border-collapse:collapse;background:#0E1520;border:1px solid ${c.border};">
+                        <tr>
+                            <td style="padding:12px 16px 8px 16px;color:${c.gold};font-size:11px;line-height:14px;letter-spacing:2px;text-transform:uppercase;font-weight:bold;">
+                                Your Submission
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:0 16px 14px 16px;color:${c.textPrimary};font-size:14px;line-height:1.75;">
+                                <strong>Company:</strong> ${esc(payload.company)}<br />
+                                <strong>Email:</strong> ${esc(payload.email)}<br />
+                                <strong>Sector:</strong> ${esc(payload.sector || 'Not specified')}<br />
+                                <strong>Tier:</strong> ${esc(payload.tier || 'Not specified')}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="color:${c.textSecondary};font-size:15px;line-height:1.7;">
+                    For urgent assistance, contact us at
+                    <a href="mailto:${esc(site.supportEmail)}" style="color:${c.gold};text-decoration:underline;"> ${esc(site.supportEmail)}</a>.
+                </td>
+            </tr>
+        </table>
     `;
 
     return emailShell({
@@ -152,21 +217,29 @@ const confirmationPlainText = (payload) => {
 };
 
 export const sendPartnershipInquiryEmail = async (payload) => {
-    if (!resend) {
+    const config = getEmailConfig();
+
+    if (!config.resendApiKey) {
         throw new Error('Missing RESEND_API_KEY environment variable.');
     }
 
+    if (!config.fromEmail) {
+        throw new Error('Missing RESEND_FROM_EMAIL environment variable.');
+    }
+
+    const resend = new Resend(config.resendApiKey);
+
     const [inquiry, confirmation] = await Promise.all([
         resend.emails.send({
-            from: defaultFromEmail,
-            to: [defaultToEmail],
+            from: config.fromEmail,
+            to: [config.toEmail],
             replyTo: payload.email,
             subject: `New Sponsorship Inquiry - ${payload.company}`,
             text: toPlainText(payload),
             html: inquiryHtmlTemplate(payload),
         }),
         resend.emails.send({
-            from: defaultFromEmail,
+            from: config.fromEmail,
             to: [payload.email],
             subject: 'Jinnah League Sponsorship Inquiry Received',
             text: confirmationPlainText(payload),

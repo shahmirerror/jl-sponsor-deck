@@ -46,7 +46,6 @@ const Footer = () => {
                         <ul className="footer-links">
                             <li><Link href="/">Home</Link></li>
                             <li><Link href="/about">About Us</Link></li>
-                            <li><a href="https://www.jinnahleague.com/jl26" target="_blank" rel="noopener noreferrer">JL&apos;26</a></li>
                             <li><Link href="/tiers">Sponsorship Tiers</Link></li>
                             <li><Link href="/sectors">Sectors</Link></li>
                             <li><Link href="/events">Legacy</Link></li>
@@ -60,7 +59,6 @@ const Footer = () => {
                             <li><Link href="/career-fair">Career Fair</Link></li>
                             <li><Link href="/previous-sponsors">Sponsor History</Link></li>
                             <li><Link href="/social-insights">Social Media Insights</Link></li>
-                            <li><a href="https://www.jinnahleague.com/media" target="_blank" rel="noopener noreferrer">Media &amp; Press</a></li>
                         </ul>
                     </div>
 

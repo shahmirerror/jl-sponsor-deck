@@ -24,3 +24,7 @@ npm-debug.log*
 # Misc scripts
 git-push.bat
 remove-bg.ps1
+
+*.md
+.gitignore
+*.sql
