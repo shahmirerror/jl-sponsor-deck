@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Button from '../Button';
 import PortalLayout from '../../pages_old/portal/PortalLayout';
@@ -107,9 +107,9 @@ const AdminPortalShell = ({ renderPage }) => {
         return authUser;
     };
 
-    const accountActions = useMemo(() => ({
+    const accountActions = {
         updateMyAccount,
-    }), [user]);
+    };
 
     if (!user) {
         return (
