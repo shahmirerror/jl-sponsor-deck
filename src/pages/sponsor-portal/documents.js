@@ -1,7 +1,5 @@
-import dynamic from 'next/dynamic';
 import SponsorPortalShell from '../../components/layout/SponsorPortalShell';
-
-const AssetRepository = dynamic(() => import('../../pages_old/sponsor-portal/AssetRepository'));
+import AssetRepository from '../../pages_old/sponsor-portal/AssetRepository';
 
 export async function getServerSideProps() {
   return { props: {} };

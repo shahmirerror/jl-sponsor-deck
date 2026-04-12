@@ -1,7 +1,5 @@
-import dynamic from 'next/dynamic';
 import AdminPortalShell from '../../components/layout/AdminPortalShell';
-
-const MyAccount = dynamic(() => import('../../pages_old/portal/MyAccount'));
+import MyAccount from '../../pages_old/portal/MyAccount';
 
 export async function getServerSideProps() {
   return { props: {} };

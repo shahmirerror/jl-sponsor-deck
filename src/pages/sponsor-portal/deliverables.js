@@ -1,7 +1,5 @@
-import dynamic from 'next/dynamic';
 import SponsorPortalShell from '../../components/layout/SponsorPortalShell';
-
-const DeliverablePipeline = dynamic(() => import('../../pages_old/sponsor-portal/DeliverablePipeline'));
+import DeliverablePipeline from '../../pages_old/sponsor-portal/DeliverablePipeline';
 
 export async function getServerSideProps() {
   return { props: {} };

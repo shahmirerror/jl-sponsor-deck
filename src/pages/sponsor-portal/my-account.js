@@ -1,7 +1,5 @@
-import dynamic from 'next/dynamic';
 import SponsorPortalShell from '../../components/layout/SponsorPortalShell';
-
-const MyAccount = dynamic(() => import('../../pages_old/sponsor-portal/MyAccount'));
+import MyAccount from '../../pages_old/sponsor-portal/MyAccount';
 
 export async function getServerSideProps() {
   return { props: {} };

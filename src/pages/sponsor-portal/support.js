@@ -1,7 +1,5 @@
-import dynamic from 'next/dynamic';
 import SponsorPortalShell from '../../components/layout/SponsorPortalShell';
-
-const SupportChannel = dynamic(() => import('../../pages_old/sponsor-portal/SupportChannel'));
+import SupportChannel from '../../pages_old/sponsor-portal/SupportChannel';
 
 export async function getServerSideProps() {
   return { props: {} };

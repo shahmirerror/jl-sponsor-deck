@@ -1,7 +1,5 @@
-import dynamic from 'next/dynamic';
 import AdminPortalShell from '../../components/layout/AdminPortalShell';
-
-const Settings = dynamic(() => import('../../pages_old/portal/Settings'));
+import Settings from '../../pages_old/portal/Settings';
 
 export async function getServerSideProps() {
   return { props: {} };

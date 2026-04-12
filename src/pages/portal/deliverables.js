@@ -1,7 +1,5 @@
-import dynamic from 'next/dynamic';
 import AdminPortalShell from '../../components/layout/AdminPortalShell';
-
-const DeliverablesTracker = dynamic(() => import('../../pages_old/portal/DeliverablesTracker'));
+import DeliverablesTracker from '../../pages_old/portal/DeliverablesTracker';
 
 export async function getServerSideProps() {
   return { props: {} };

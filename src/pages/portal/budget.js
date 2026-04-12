@@ -1,7 +1,5 @@
-import dynamic from 'next/dynamic';
 import AdminPortalShell from '../../components/layout/AdminPortalShell';
-
-const BudgetTracker = dynamic(() => import('../../pages_old/portal/BudgetTracker'));
+import BudgetTracker from '../../pages_old/portal/BudgetTracker';
 
 export async function getServerSideProps() {
   return { props: {} };
