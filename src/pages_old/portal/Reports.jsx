@@ -5,7 +5,6 @@ import Button from '../../components/Button';
 import { DisabledPermissionButton, PermissionReadOnlyNote } from '../../components/PermissionFeedback';
 import { budgetHelpers, expenditureHelpers, sponsorHelpers, sponsorPortalHelpers, taskHelpers } from '../../lib/supabaseHelpers';
 import { hasPermission } from '../../lib/permissions';
-import { jsPDF } from 'jspdf';
 
 // Simple Chart Components (no external dependencies)
 const SimpleBarChart = ({ data, title, valueFormatter = (value) => `Rs. ${(value / 1000).toFixed(0)}k` }) => {
@@ -343,6 +342,7 @@ const Reports = ({ user }) => {
             return;
         }
         if (exportFormat === 'pdf') {
+            const { jsPDF } = await import('jspdf/dist/jspdf.es.min.js');
             const doc = new jsPDF({ unit: 'pt', format: 'a4' });
             const left = 48;
             const right = 547;
